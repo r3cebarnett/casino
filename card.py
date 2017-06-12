@@ -1,3 +1,5 @@
+import random
+
 class Card:
     def __init__(self, suit, value):
         self.suit = suit
@@ -26,15 +28,29 @@ class Deck:
         self.position = 0
 
     def getSize(self):
-        return len(self.deck)
+        return len(self.deck)-self.position
 
-    def pickCard(self):
-        if self.position < 52:
-            suit = self.deck[self.position].getSuit()
-            value = self.deck[self.position].getValue()
-            print(value, "of", suit + 's')
-            self.deck[self.position].notFlip = False
-            self.position += 1
+    def pickCard(self, count):
+        for i in range(count):
+            if self.position < 52:
+                suit = self.deck[self.position].getSuit()
+                value = self.deck[self.position].getValue()
+                print(value, "of", suit + 's')
+                self.deck[self.position].notFlip = False
+                self.position += 1
 
-        else:
-            print('Please shuffle the deck')
+            else:
+                self.shuffle()
+                suit = self.deck[self.position].getSuit()
+                value = self.deck[self.position].getValue()
+                print(value, "of", suit + 's')
+                self.deck[self.position].notFlip = False
+                self.position += 1
+
+    def shuffle(self):
+        random.shuffle(self.deck)
+
+        for i in self.deck:
+            i.notFlip = True
+
+        self.position = 0
