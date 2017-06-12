@@ -23,5 +23,18 @@ class Deck:
             for j in Deck.VALUES:
                 self.deck.append(Card(i, j))
 
+        self.position = 0
+
     def getSize(self):
         return len(self.deck)
+
+    def pickCard(self):
+        if self.position < 52:
+            suit = self.deck[self.position].getSuit()
+            value = self.deck[self.position].getValue()
+            print(value, "of", suit + 's')
+            self.deck[self.position].notFlip = False
+            self.position += 1
+
+        else:
+            print('Please shuffle the deck')
